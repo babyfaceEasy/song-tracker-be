@@ -6,7 +6,14 @@ module.exports = {
     password: process.env.DB_PASS || 'root',
     options: {
       dialect: process.env.DIALECT || 'mysql',
-      host: process.env.HOST || 'localhost'
+      host: process.env.HOST || 'localhost',
+      operatorAliases: false,
+      pool: {
+        max: 5,
+        min: 0,
+        acquire: 30000,
+        idle: 10000
+      }
     }
   }
 }

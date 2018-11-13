@@ -3,9 +3,10 @@ const bodyParser = require('body-parser')
 const morgan = require('morgan')
 const { sequelize } = require('./models')
 const { config } = require('./config/config')
-
 const app = express()
 
+// ================================================
+// CORS SECTION
 app.use(morgan('combined'))
 const allowCrossDomain = (req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*')
@@ -21,18 +22,18 @@ const allowCrossDomain = (req, res, next) => {
 }
 app.use(allowCrossDomain)
 
+// ===================================================
+// BODY PARSER SECTION
 app.use(bodyParser.json())
 
-/*
-app.get('/status', (req, res) => {
-  res.send({ message: 'Hello world!' })
-})
-*/
-
+// ================================================
+// ROUTES
 require('./routes')(app)
 
+// ==================================================
+// SEQUELIZE AND APP START
 sequelize.sync()
   .then(() => {
-    app.listen(config.port)
-    console.log(`Server started on ${config.port}`)
+    app.listen(8081)
+    console.log(`Server started on ` + 8081)
   })
