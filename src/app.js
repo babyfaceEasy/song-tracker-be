@@ -23,13 +23,13 @@ app.use(allowCrossDomain)
 
 app.use(bodyParser.json())
 
+/*
 app.get('/status', (req, res) => {
   res.send({ message: 'Hello world!' })
 })
+*/
 
-app.post('/register', (req, res) => {
-  res.status(200).json({ message: `Your ${req.body.email} user was registered, have fun!` })
-})
+require('./routes')(app)
 
 sequelize.sync()
   .then(() => {
