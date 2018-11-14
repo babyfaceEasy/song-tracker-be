@@ -15,5 +15,8 @@ module.exports = {
         idle: 10000
       }
     }
+  },
+  authentication: {
+    jwtSecret: process.env.JWT_SECRET || 'K1ll@cam!'
   }
 }
