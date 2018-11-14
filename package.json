@@ -14,10 +14,17 @@
   "author": "Michael Olakunle Odegbaro",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^3.0.2",
+    "bcrypt-nodejs": "0.0.3",
+    "bluebird": "^3.5.3",
     "body-parser": "^1.18.3",
     "cors": "^2.8.5",
     "express": "^4.16.4",
-    "morgan": "^1.9.1"
+    "joi": "^14.0.6",
+    "jsonwebtoken": "^8.4.0",
+    "morgan": "^1.9.1",
+    "mysql2": "^1.6.1",
+    "sequelize": "^4.39.0"
   },
   "devDependencies": {
     "eslint": "^5.9.0",
