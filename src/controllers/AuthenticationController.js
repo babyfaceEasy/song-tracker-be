@@ -17,7 +17,7 @@ module.exports = {
     } catch (err) {
       // email already exists kinda error
       // res.status(400).send({ error: err })
-      res.status(400).send({ error: err.errors[0].message })
+      res.status(400).send({ error: err.message })
     }
   },
   async login (req, res) {
@@ -30,17 +30,18 @@ module.exports = {
         }
       })
       if (!user) {
-        res.status(403).send({ error: 'Login information was incorrect.' })
+        res.status(403).send({ error: 'User not found.' })
       }
-      const isPasswordValid = password === user.password
+      const isPasswordValid = await user.comparePassword(password)
+      console.log(`IS_PASSWORD_VALID: ${isPasswordValid}`)
       if (!isPasswordValid) {
-        res.status(403).send({ error: 'Login information was incorrect.' })
+        res.status(403).send({ error: 'Passwords do not match.' })
       }
       const userJson = user.toJSON()
       res.status(200).send({ user: userJson, token: jwtSignUser(userJson) })
     } catch (err) {
       // This might be a 500 so log it and don't show it to ur user.
-      res.status(403).send({ error: err.errors[0].message })
+      res.status(403).send({ error: err.message })
     }
   }
 }
