@@ -5,4 +5,5 @@ module.exports = (app) => {
     res.status(200).send({ message: 'successful' })
   })
   app.post('/register', AuthenticationControllerPolicy.register, AuthenticationController.register)
+  app.post('/login', AuthenticationController.login)
 }

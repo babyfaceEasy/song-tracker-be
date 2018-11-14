@@ -9,5 +9,28 @@ module.exports = {
       // res.status(400).send({ error: err })
       res.status(400).send({ error: err.errors[0].message })
     }
+  },
+  async login (req, res) {
+    try {
+      const { email, password } = req.body
+
+      const user = await User.findOne({
+        where: {
+          email: email
+        }
+      })
+      if (!user) {
+        res.status(403).send({ error: 'Login information was incorrect.' })
+      }
+      const isPasswordValid = password === user.password
+      if (!isPasswordValid) {
+        res.status(403).send({ error: 'Login information was incorrect.' })
+      }
+      const userJson = user.toJSON()
+      res.status(200).send(userJson)
+    } catch (err) {
+      // This might be a 500 so log it and don't show it to ur user.
+      res.status(403).send({ error: err.errors[0].message })
+    }
   }
 }
