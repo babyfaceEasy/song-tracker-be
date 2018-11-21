@@ -22,5 +22,15 @@ module.exports = {
         error: 'An error occured trying to create your song.'
       })
     }
+  },
+  async show (req, res) {
+    try {
+      const song = await Song.findById(req.params.songId)
+      res.send(song)
+    } catch (err) {
+      res.status(500).send({
+        error: 'An error occured trying to retrieve song.'
+      })
+    }
   }
 }
